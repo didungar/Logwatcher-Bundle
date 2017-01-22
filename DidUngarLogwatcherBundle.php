@@ -1,9 +1,9 @@
 <?php
 
-namespace DidUngar\Logwatcher‎Bundle;
+namespace DidUngar\LogwatcherBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-class DidUngarLogwatcher‎Bundle extends Bundle
+class DidUngarLogwatcherBundle extends Bundle
 {
 }

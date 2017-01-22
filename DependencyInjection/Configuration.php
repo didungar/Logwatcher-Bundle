@@ -1,6 +1,6 @@
 <?php
 
-namespace DidUngar\Logwatcher‎Bundle\DependencyInjection;
+namespace DidUngar\LogwatcherBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
