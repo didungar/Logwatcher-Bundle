@@ -1,0 +1,19 @@
+{
+    "name": "DidUngar/LogwatcherBundle",
+    "type": "library",
+    "description": "Bundle for manage simply the sf logs and make alert.",
+    "authors": [
+        {
+            "name": "Didier Ungar",
+            "email": "didungar@gmail.com"
+        }
+    ],
+    "autoload": {
+        "classmap": ["/"]
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "2.0.x-dev"
+        }
+    }
+}
