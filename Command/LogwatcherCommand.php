@@ -18,9 +18,38 @@ class LogwatcherCommand extends ContainerAwareCommand
 		;
 	}
 
+	protected $tell = 0;
+	protected $alert = [];
 	protected function execute(InputInterface $input, OutputInterface $output)
 	{
-		$this->getContainer()->get('kernel')->getRootDir();
-		echo "\n";
+		$sFileLog = $this->getContainer()->getParameter('kernel.logs_dir').'/'.$this->getContainer()->getParameter('kernel.environment').'.log';
+		//echo "$sFileLog\n";
+		$this->alert = $this->getContainer()->getParameter('didungar.logwatcher.alert');
+
+		while ( true ) {
+			$handle = @fopen($sFileLog, 'r');
+			if ( empty($handle) ) {
+				throw new \Exception('$handle not open');
+			}
+
+			if ( $this->tell ) {
+				fseek($handle, $this->tell);
+			}
+			while($line = fgets($handle)) {
+				$alert_on = 0;
+				foreach($this->alert as $alert_regex) {
+					$alert_on += preg_match($alert_regex, $line);
+				}
+				if ( ! $alert_on ) {
+					continue;
+				}
+				echo $line;
+			}
+			$this->tell = ftell($handle);
+
+			fclose($handle);
+
+			sleep(15);
+		}
 	}
 }
