@@ -44,6 +44,9 @@ class LogwatcherCommand extends ContainerAwareCommand
 					continue;
 				}
 				echo $line;
+				if ( $this->getContainer()->hasParameter('didungar.logwatcher.mail') ) {
+					$this->alertMail($line);
+				}
 			}
 			$this->tell = ftell($handle);
 
@@ -51,5 +54,15 @@ class LogwatcherCommand extends ContainerAwareCommand
 
 			sleep(15);
 		}
+	}
+	protected function alertMail($sLigne) {
+		$message = \Swift_Message::newInstance()
+			->setSubject(__CLASS__)
+			//->setFrom('TODO@TODO.todo')
+			->setTo($this->getContainer()->getParameter('didungar.logwatcher.mail'))
+			->setBody('Test Body');
+		$ret = $this->getContainer()->get('mailer')->send($message);
+		echo "Send mail : $ret\n";
+		return $ret;
 	}
 }
